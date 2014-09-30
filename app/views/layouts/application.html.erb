@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <title>AppSample</title> -->
+  <%= metamagic site: "Plans", title: [:title, :site], separator: " — " %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application", "jquery.notifyBar" %>
+
+   <% if !flash[:error].nil? or !flash[:notice].nil?  or !flash[:alert].nil?%>
+      <% if !flash[:error].nil? %>
+        <script type="text/javascript">
+          $(function () {
+            $.notifyBar({
+              html: "<%= flash[:error]%>",
+              cls: "<%='error'%>",
+              close: true,
+              delay: 2550,
+              animationSpeed: "normal"
+            });
+          });
+        </script>
+      <% elsif !flash[:notice].nil? %>
+        <script type="text/javascript">
+          $(function () {
+            $.notifyBar({
+              html: "<%= flash[:notice]%>",
+              cls: "<%='success'%>",
+              close: true,
+              delay: 2550,
+              animationSpeed: "normal"
+            });
+          });
+        </script>
+      <% else %>
+        <script type="text/javascript">
+          $(function () {
+            $.notifyBar({
+              html: "<%= flash[:alert]%>",
+              cls: "<%='error'%>",
+              close: true,
+              delay: 2550,
+              animationSpeed: "normal"
+            });
+          });
+        </script>
+      <% end %>
+    <% end %>
+</head>
+<body>
+<%if current_user%><%= link_to "sign out", destroy_user_session_path, method: :delete %><%end%>
+<%= yield %>
+
+</body>
+</html>

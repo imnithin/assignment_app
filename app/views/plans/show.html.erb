@@ -1,0 +1,43 @@
+<%
+meta title: @plan.title,
+     description: "Show Plan",
+     keywords: %w(plans show_plan)
+%>
+<p id="notice"><%= notice %></p>
+<b>Inline editing</b><br/>
+------------------------------------
+<p>
+  <strong>Title:</strong>
+  <%= best_in_place @plan, :title,:type=>:input,:nil=>"" %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= best_in_place @plan,:name,:type=>:input,:nil=>"" %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= best_in_place @plan,:detail,:type=>:input,:nil=>"" %>
+</p>
+
+<b>without inline editing - caching</b><br/>
+------------------------------------
+<p>
+  <strong>Title:</strong>
+  <%= @plan.title %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plan.name %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= @plan.detail %>
+</p>
+
+
+<%= link_to 'Edit', edit_plan_path(@plan) %>
+<%= link_to 'Back', plans_path %>

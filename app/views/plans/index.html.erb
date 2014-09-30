@@ -1,0 +1,38 @@
+<%
+meta title: "Listing",
+     description: "List all plans",
+     keywords: %w(plans create_new_plan)
+%>
+<h1>Listing plans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Name</th>
+      <th>Detail</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+     <%# cache("plans") do %>
+    <% @plans.each do |plan| %>
+      <tr>
+        <td><%= plan.title %></td>
+        <td><%= plan.name %></td>
+        <td><%= plan.detail %></td>
+        <td><%= link_to 'Show', plan %></td>
+        <%if can? :update, plan%><td><%= link_to 'Edit', edit_plan_path(plan) %></td><%end%>
+        <%if can? :destroy, plan%><td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td><%end%>
+      </tr>
+    <% end %>
+    <%#end%>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plan', new_plan_path %>
