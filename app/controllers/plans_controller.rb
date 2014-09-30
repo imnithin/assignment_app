@@ -52,14 +52,19 @@ class PlansController < ApplicationController
   # PATCH/PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
-    if @plan.update(plan_params)
-      # expire_fragment("plans")
-      expire_action :action => 'index'
-      expire_action :action => 'show'
-      expire_page action: 'show', id: params[:id]
-      redirect_to action: 'show', id: params[:id]
-    else
-      render "edit"
+    respond_to do |format|
+      if @plan.update(plan_params)
+        # expire_fragment("plans")
+        expire_action :action => 'index'
+        expire_action :action => 'show'
+        expire_page action: 'show', id: params[:id]
+        # redirect_to action: 'show', id: params[:id]
+        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        format.json { respond_with_bip(@plan) }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @plan.errors, status: :unprocessable_entity }
+      end
     end
   end
 
