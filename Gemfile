@@ -46,11 +46,11 @@ end
  gem 'best_in_place', github: 'bernat/best_in_place'
  gem 'cancancan', '~> 1.9'
  gem 'execjs'
- gem "therubyracer"
+ gem 'therubyracer'
 
  group :development do
   gem 'web-console'
-  gem 'debugger'
+  # gem 'debugger'
   gem 'quiet_assets'
 end
 
